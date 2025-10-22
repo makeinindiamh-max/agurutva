@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Agurutva - Solar Transportation Bridge" />
+  <title>AGURUTVA | Solar Transportation Bridge</title>
+  <style>
+    /* Reset & base style */
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {
+      background: radial-gradient(ellipse at bottom, #0d1b2a 0%, #000000 100%);
+      font-family: "Orbitron", sans-serif;
+      color: #fff;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    /* Stars animation */
+    .stars {
+      width: 2px;
+      height: 2px;
+      background: white;
+      position: absolute;
+      animation: blink 2s infinite ease-in-out;
+    }
+    @keyframes blink {
+      0%,100% {opacity:0.3;}
+      50% {opacity:1;}
+    }
+
+    /* Logo */
+    .logo img {
+      width: 300px;
+      max-width: 80vw;
+      margin-bottom: 20px;
+    }
+
+    /* Tagline */
+    .tagline {
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      color: #ffcc33;
+      text-shadow: 0 0 10px #ffd700;
+      margin-bottom: 40px;
+      animation: glow 3s infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #ffd700; }
+      to { text-shadow: 0 0 25px #ffaa00; }
+    }
+
+    /* Countdown */
+    .countdown {
+      font-size: 2rem;
+      color: #fff;
+      text-shadow: 0 0 10px #00ffff;
+      margin-top: 10px;
+    }
+
+    .desc {
+      max-width: 800px;
+      font-size: 1rem;
+      color: #ccc;
+      margin-top: 40px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Animated stars -->
+  <script>
+    for (let i = 0; i < 150; i++) {
+      const star = document.createElement('div');
+      star.className = 'stars';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.animationDuration = (Math.random() * 2 + 1) + 's';
+      document.body.appendChild(star);
+    }
+  </script>
+
+  <!-- Logo -->
+  <div class="logo">
+    <img src="logo.png" alt="AGURUTVA Logo" />
+  </div>
+
+  <!-- Tagline -->
+  <div class="tagline">SOLAR TRANSPORTATION BRIDGE</div>
+
+  <!-- Countdown -->
+  <div id="countdown" class="countdown">Loading...</div>
+
+  <!-- Description -->
+  <div class="desc">
+    Agurutva is a <strong>Zero Gravity Starship Carrier</strong> — a revolutionary <strong>Transportation Bridge</strong> 
+    connecting planets, civilizations, and worlds.  
+    Designed to operate across the Solar System, it enables stable, energy-efficient transport for life, cargo, and data — 
+    using only a fraction of conventional energy.  
+    <br><br>
+    <em>“Motionless Motion — The Future Begins Here.”</em>
+  </div>
+
+  <script>
+    // Countdown Timer Script
+    const targetDate = new Date("January 1, 2030 00:00:00").getTime();
+
+    const countdownFunction = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        document.getElementById("countdown").innerHTML = "🚀 LAUNCHED SUCCESSFULLY!";
+        clearInterval(countdownFunction);
+      } else {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").innerHTML =
+          days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+      }
+    }, 1000);
+  </script>
+
+</body>
+</html>
