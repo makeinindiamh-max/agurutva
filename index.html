@@ -5,106 +5,166 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Agurutva - Solar Transportation Bridge" />
   <title>AGURUTVA | Solar Transportation Bridge</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  
   <style>
     /* Reset & base style */
     * {margin:0; padding:0; box-sizing:border-box;}
+    
+    /* Body Styles */
     body {
-      background: radial-gradient(ellipse at bottom, #0d1b2a 0%, #000000 100%);
-      font-family: "Orbitron", sans-serif;
+      background-color: #000000;
+      box-shadow: inset 0 0 100px rgba(0, 255, 255, 0.05); 
+      animation: deepShadow 20s infinite alternate linear;
+      font-family: 'Orbitron', sans-serif;
       color: #fff;
       height: 100vh;
-      overflow: hidden;
+      overflow: hidden; 
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
+      padding: 20px;
+    }
+    
+    /* Animation for subtle background depth */
+    @keyframes deepShadow {
+        from { box-shadow: inset 0 0 100px rgba(0, 255, 255, 0.05); }
+        to { box-shadow: inset 0 0 150px rgba(255, 0, 255, 0.08); }
     }
 
-    /* Stars animation */
-    .stars {
-      width: 2px;
-      height: 2px;
-      background: white;
-      position: absolute;
-      animation: blink 2s infinite ease-in-out;
+    /* Comet/Asteroid Animation - COLOR CHANGED TO YELLOW */
+    .comet {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #FFFF33; /* <-- YELLOW COLOR */
+        border-radius: 50%;
+        box-shadow: 0 0 15px #FFFF33; /* <-- MATCHING YELLOW GLOW */
+        z-index: -1;
     }
-    @keyframes blink {
-      0%,100% {opacity:0.3;}
-      50% {opacity:1;}
+    
+    @keyframes moveComet {
+        0% {
+            transform: translate(0vw, 0vh) scale(1);
+            opacity: 0.5;
+        }
+        50% {
+             transform: translate(50vw, 50vh) scale(0.8);
+             opacity: 1;
+        }
+        100% {
+            transform: translate(100vw, 100vh) scale(0.5);
+            opacity: 0.5;
+        }
     }
+
 
     /* Logo */
     .logo img {
       width: 300px;
       max-width: 80vw;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
+      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5)); 
     }
 
     /* Tagline */
     .tagline {
-      font-size: 1.5rem;
-      letter-spacing: 2px;
-      color: #ffcc33;
-      text-shadow: 0 0 10px #ffd700;
+      font-size: 1.8rem;
+      letter-spacing: 5px;
+      color: #00ffff;
+      text-shadow: 0 0 15px #00ffff, 0 0 25px #00aaff;
       margin-bottom: 40px;
       animation: glow 3s infinite alternate;
     }
     @keyframes glow {
-      from { text-shadow: 0 0 5px #ffd700; }
-      to { text-shadow: 0 0 25px #ffaa00; }
+      from { text-shadow: 0 0 10px #00ffff, 0 0 20px #00aaff; }
+      to { text-shadow: 0 0 30px #00ffff, 0 0 45px #00aaff; }
     }
 
-    /* Countdown */
+    /* Countdown - Digital style */
     .countdown {
-      font-size: 2rem;
-      color: #fff;
-      text-shadow: 0 0 10px #00ffff;
-      margin-top: 10px;
+      font-family: 'Share Tech Mono', monospace; 
+      font-size: 3rem; 
+      color: #ffcc00;
+      text-shadow: 0 0 10px #ffcc00;
+      margin-top: 20px;
+      padding: 10px 0; 
     }
-
+    
+    /* Description */
     .desc {
       max-width: 800px;
       font-size: 1rem;
-      color: #ccc;
-      margin-top: 40px;
-      line-height: 1.6;
+      color: #aaa;
+      margin-top: 50px;
+      line-height: 1.8;
+      font-family: 'Share Tech Mono', monospace;
+      padding: 0 20px;
+    }
+    
+    /* Footer/Copyright */
+    .footer {
+      position: absolute;
+      bottom: 15px;
+      width: 100%;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem; 
+      color: rgba(255, 255, 255, 0.4);
+      letter-spacing: 1px;
+      text-shadow: none;
     }
   </style>
 </head>
 <body>
 
-  <!-- Animated stars -->
   <script>
-    for (let i = 0; i < 150; i++) {
-      const star = document.createElement('div');
-      star.className = 'stars';
-      star.style.top = Math.random() * 100 + '%';
-      star.style.left = Math.random() * 100 + '%';
-      star.style.animationDuration = (Math.random() * 2 + 1) + 's';
-      document.body.appendChild(star);
+    function createComet() {
+      const comet = document.createElement('div');
+      comet.className = 'comet';
+      
+      const startX = Math.random() * -50 - 5 + 'vw';
+      const startY = Math.random() * -50 - 5 + 'vh';
+      comet.style.left = startX;
+      comet.style.top = startY;
+
+      const duration = Math.random() * 15 + 20;
+      const delay = Math.random() * -duration;
+      
+      comet.style.animationName = 'moveComet';
+      comet.style.animationDuration = duration + 's';
+      comet.style.animationDelay = delay + 's';
+      comet.style.animationIterationCount = 'infinite';
+      comet.style.animationTimingFunction = 'linear';
+      
+      document.body.appendChild(comet);
+    }
+
+    for (let i = 0; i < 3; i++) {
+        createComet();
     }
   </script>
 
-  <!-- Logo -->
   <div class="logo">
     <img src="logo.png" alt="AGURUTVA Logo" />
   </div>
 
-  <!-- Tagline -->
   <div class="tagline">SOLAR TRANSPORTATION BRIDGE</div>
 
-  <!-- Countdown -->
-  <div id="countdown" class="countdown">Loading...</div>
+  <div id="countdown" class="countdown">Initializing Countdown...</div>
 
-  <!-- Description -->
   <div class="desc">
-    Agurutva is a <strong>Zero Gravity Starship Carrier</strong> — a revolutionary <strong>Transportation Bridge</strong> 
-    connecting planets, civilizations, and worlds.  
+    Agurutva is a <strong>Zero Gravity Starship Carrier</strong> — a revolutionary <strong>Transportation Bridge</strong> connecting planets, civilizations, and worlds.  
     Designed to operate across the Solar System, it enables stable, energy-efficient transport for life, cargo, and data — 
     using only a fraction of conventional energy.  
     <br><br>
-    <em>“Motionless Motion — The Future Begins Here.”</em>
+    <em style="color:#00ffff;">Motionless Motion — The Future Begins Here.</em>
+  </div>
+  
+  <div class="footer">
+    EDG Group India &copy; 2024. All rights reserved.
   </div>
 
   <script>
