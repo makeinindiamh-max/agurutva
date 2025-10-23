@@ -1,262 +1,412 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Agurutva - Solar Transportation Bridge" />
-  <title>AGURUTVA | Solar Transportation Bridge</title>
-  
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AGURUTVA | Solaris Initiative</title>
   <style>
-    /* ------------------------------------------------------------------- */
-    /* BASE STYLES (MOBILE-FIRST) */
-    /* ------------------------------------------------------------------- */
-    * {margin:0; padding:0; box-sizing:border-box;}
-    
-    body {
-      background-color: #000000;
-      box-shadow: inset 0 0 100px rgba(0, 255, 255, 0.05); 
-      animation: deepShadow 20s infinite alternate linear;
+    @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Orbitron:wght@400;700&display=swap');
 
-      height: 100dvh; /* Use 100dvh for dynamic viewport height on mobile browsers */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background-color: #000;
+      color: #e0e0e0;
+      overflow-x: hidden;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      
-      /* FIX: Space-between to push content to top/bottom on smaller screens */
-      justify-content: space-between; 
-      
-      text-align: center;
-      overflow: hidden; /* Prevent body scroll, manage internal scroll with flex-grow */
-      font-family: 'Orbitron', sans-serif;
-      color: #fff;
-      
-      /* FIX: Top/bottom padding to ensure content doesn't hit screen edges or fixed footer */
-      padding: 20px 10px; 
-    }
-    
-    @keyframes deepShadow {
-        from { box-shadow: inset 0 0 100px rgba(0, 255, 255, 0.05); }
-        to { box-shadow: inset 0 0 150px rgba(255, 0, 255, 0.08); }
     }
 
-    /* Comet/Asteroid Animation - Yellow Color */
-    .comet {
-        position: absolute;
-        width: 3px; 
-        height: 3px; 
-        background: #FFFF33; 
-        border-radius: 50%;
-        box-shadow: 0 0 10px #FFFF33;
-        z-index: -1;
-    }
-    
-    @keyframes moveComet {
-        0% { transform: translate(0vw, 0vh) scale(1); opacity: 0.5; }
-        50% { transform: translate(50vw, 50vh) scale(0.8); opacity: 1; }
-        100% { transform: translate(100vw, 100vh) scale(0.5); opacity: 0.5; }
-    }
-
-
-    /* Main content wrapper to allow for internal scrolling */
-    .main-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        flex-grow: 1; /* Allows this section to take up available space */
-        justify-content: center; /* Center content vertically within this section */
-        overflow-y: auto; /* Allow internal scrolling if content is too tall */
-        width: 100%;
-        padding: 10px 0; /* Internal padding */
-    }
-
-    /* Logo */
-    .logo img {
-      width: 160px; /* Further reduced size for better mobile fit */
-      max-width: 50vw;
-      margin-bottom: 20px;
-      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5)); 
-    }
-
-    /* Tagline */
-    .tagline {
-      font-size: 0.9rem; /* Further reduced size for mobile */
-      letter-spacing: 2px;
-      color: #00ffff;
-      text-shadow: 0 0 8px #00ffff, 0 0 12px #00aaff;
-      margin-bottom: 20px;
-      animation: glow 3s infinite alternate;
-      line-height: 1.2;
-      padding: 0 5px;
-    }
-    
-    @keyframes glow {
-      from { text-shadow: 0 0 5px #00ffff, 0 0 10px #00aaff; }
-      to { text-shadow: 0 0 15px #00ffff, 0 0 20px #00aaff; }
-    }
-
-    /* Countdown - Digital style */
-    .countdown {
-      font-family: 'Share Tech Mono', monospace; 
-      font-size: 1.6rem; /* Reduced size for mobile */
-      color: #ffcc00;
-      text-shadow: 0 0 8px #ffcc00;
-      margin-top: 10px;
-      margin-bottom: 25px;
-      line-height: 1.2;
-      padding: 0 5px;
-    }
-    
-    /* Description */
-    .desc {
-      max-width: 95%; 
-      font-size: 0.7rem; /* Smallest size for readability on mobile */
-      color: #aaa;
-      line-height: 1.6;
-      font-family: 'Share Tech Mono', monospace;
-      padding: 0 10px;
-      margin-top: 10px;
-      margin-bottom: 10px; 
-    }
-    
-    /* Footer/Copyright */
-    .footer {
-      /* Not fixed anymore, part of the flex column flow */
+    /* --- Animated Starfield Background --- */
+    .stars-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      background-color: rgba(0, 0, 0, 0.7); 
-      padding: 8px 10px; /* Increased padding for better visibility over browser UI */
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.6rem; 
-      color: rgba(255, 255, 255, 0.4);
-      letter-spacing: 0.5px;
-      text-shadow: none;
+      height: 100%;
+      z-index: -10;
+      overflow: hidden;
+    }
+
+    .stars, .stars2, .stars3 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+    }
+
+    /* Layer 1: Small, slow stars */
+    .stars {
+      background-image: 
+        radial-gradient(1px 1px at 20px 30px, #eee, transparent),
+        radial-gradient(1px 1px at 40px 70px, #fff, transparent),
+        radial-gradient(1px 1px at 50px 160px, #ddd, transparent),
+        radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+        radial-gradient(1px 1px at 130px 80px, #fff, transparent),
+        radial-gradient(1px 1px at 160px 120px, #ddd, transparent);
+      background-size: 200px 200px;
+      animation: moveStars 120s linear infinite;
+    }
+
+    /* Layer 2: Medium, faster stars */
+    .stars2 {
+      background-image: 
+        radial-gradient(1px 1px at 50px 200px, #fff, transparent),
+        radial-gradient(1px 1px at 100px 300px, #eee, transparent),
+        radial-gradient(1px 1px at 200px 450px, #fff, transparent),
+        radial-gradient(1px 1px at 300px 100px, #ddd, transparent),
+        radial-gradient(1px 1px at 400px 250px, #fff, transparent),
+        radial-gradient(1px 1px at 500px 350px, #fff, transparent);
+      background-size: 300px 300px;
+      animation: moveStars 80s linear infinite;
+    }
+    
+    /* Layer 3: Faint, distant elements */
+    .stars3 {
+      background-image: 
+        radial-gradient(2px 2px at 10% 10%, #00bfff22, transparent),
+        radial-gradient(3px 3px at 80% 30%, #ffcc0011, transparent),
+        radial-gradient(2px 2px at 30% 70%, #ffffff1a, transparent),
+        radial-gradient(3px 3px at 50% 50%, #00bfff11, transparent);
+      background-size: 400px 400px;
+      animation: moveStars 60s linear infinite;
+    }
+
+    @keyframes moveStars {
+      from { transform: translateY(0); }
+      to { transform: translateY(-1000px); }
+    }
+    /* --- End of Background --- */
+
+    /* --- Glowing Sun --- */
+    .sun {
+      position: fixed;
+      top: 50%;
+      left: 0;
+      width: 200px;
+      height: 200px;
+      margin-top: -100px;
+      background: radial-gradient(circle, rgba(255,215,0,0.8) 0%, rgba(255,140,0,0.6) 30%, rgba(255,69,0,0.2) 70%, transparent 100%);
+      border-radius: 50%;
+      filter: blur(20px);
+      box-shadow: 
+        0 0 60px 30px rgba(255,215,0,0.6),
+        0 0 100px 60px rgba(255,140,0,0.4),
+        0 0 140px 90px rgba(255,69,0,0.2);
+      z-index: -5;
+      animation: sunMove 60s ease-in-out infinite alternate;
+    }
+
+    @keyframes sunMove {
+      0% {
+        transform: translateX(-50px) translateY(0);
+      }
+      100% {
+        transform: translateX(calc(100vw - 150px)) translateY(0);
+      }
+    }
+    /* --- End of Sun --- */
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      max-width: 1200px;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(8px);
+    }
+
+    /* --- Updated Logo Container --- */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-img {
+      height: 40px;
+      width: auto;
+      filter: drop-shadow(0 0 5px #00bfff);
+    }
+
+    .logo-text .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6rem;
+      color: #fff;
+      letter-spacing: 3px;
+      line-height: 1;
+    }
+    
+    .logo-text .logo span {
+      color: #00bfff;
+    }
+
+    .logo-text .tagline {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.8rem;
+      color: #aaa;
+      letter-spacing: 1px;
+      margin-top: 2px;
+      font-weight: 500;
+    }
+    /* --- End of Logo --- */
+
+    .countdown {
+      color: #ffcc00;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 10px 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 10px rgba(255, 200, 50, 0.2);
+    }
+
+    main {
+      text-align: center;
+      padding: 160px 20px 80px;
+      position: relative;
       z-index: 10;
+      width: 100%;
+      max-width: 1200px;
     }
 
-    /* ------------------------------------------------------------------- */
-    /* MEDIA QUERY (TABLET/DESKTOP SCREENS) - min-width: 768px */
-    /* ------------------------------------------------------------------- */
-    @media (min-width: 768px) {
-        body {
-            padding: 30px 20px; /* Adjust padding for desktop */
-        }
-        .main-content {
-            padding: 20px 0;
-            max-width: 900px; /* Constrain content width on large screens */
-        }
-
-        .comet {
-            width: 4px;
-            height: 4px;
-            box-shadow: 0 0 15px #FFFF33;
-        }
-
-        .logo img {
-            width: 300px;
-            max-width: 350px;
-            margin-bottom: 30px;
-            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5)); 
-        }
-
-        .tagline {
-            font-size: 1.8rem;
-            letter-spacing: 5px;
-            margin-bottom: 40px;
-            text-shadow: 0 0 15px #00ffff, 0 0 25px #00aaff;
-        }
-
-        .countdown {
-            font-size: 3rem;
-            margin-top: 20px;
-            margin-bottom: 40px;
-            text-shadow: 0 0 10px #ffcc00;
-        }
-        
-        .desc {
-            max-width: 800px;
-            font-size: 1rem;
-            padding: 0 20px;
-        }
-        .footer {
-            font-size: 0.75rem;
-            padding: 10px 0;
-        }
+    /* --- Updated Titles --- */
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.8rem;
+      color: #00bfff;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      letter-spacing: 3px;
     }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: #a0a0a0;
+      letter-spacing: 1px;
+      margin-bottom: 60px;
+    }
+    /* --- End of Titles --- */
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 40px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 40px 25px;
+      transition: all 0.4s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .card:hover {
+      border-color: #00bfff;
+      box-shadow: 0 0 25px rgba(0, 191, 255, 0.3);
+      transform: translateY(-8px);
+    }
+
+    .symbol {
+      margin-bottom: 20px;
+      height: 64px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .symbol img {
+      width: 60px;
+      height: 60px;
+      filter: drop-shadow(0 0 10px #ffcc00);
+      opacity: 0.9;
+    }
+
+    .card h3 {
+      color: #fff;
+      font-size: 1.3rem;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #aaa;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 0.9rem;
+      color: #777;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      margin-top: 60px;
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .motion-text {
+      font-family: 'Orbitron', sans-serif;
+      color: #00bfff;
+      font-size: 1rem;
+      letter-spacing: 1.5px;
+      margin-top: 60px;
+      text-transform: uppercase;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      main {
+        padding-top: 180px;
+      }
+      
+      h1 {
+        font-size: 2.2rem;
+      }
+      
+      .sun {
+        width: 150px;
+        height: 150px;
+        margin-top: -75px;
+      }
+    }
+
   </style>
 </head>
+
 <body>
-
-  <script>
-    function createComet() {
-      const comet = document.createElement('div');
-      comet.className = 'comet';
-      
-      const startX = Math.random() * -50 - 5 + 'vw';
-      const startY = Math.random() * -50 - 5 + 'vh';
-      comet.style.left = startX;
-      comet.style.top = startY;
-
-      const duration = Math.random() * 15 + 20;
-      const delay = Math.random() * -duration;
-      
-      comet.style.animationName = 'moveComet';
-      comet.style.animationDuration = duration + 's';
-      comet.style.animationDelay = delay + 's';
-      comet.style.animationIterationCount = 'infinite';
-      comet.style.animationTimingFunction = 'linear';
-      
-      document.body.appendChild(comet);
-    }
-
-    // Create 3 comets
-    for (let i = 0; i < 3; i++) {
-        createComet();
-    }
-  </script>
-
-  <div class="main-content">
-    <div class="logo">
-      <img src="logo.png" alt="AGURUTVA Logo" />
-    </div>
-
-    <div class="tagline">SOLAR TRANSPORTATION BRIDGE</div>
-
-    <div id="countdown" class="countdown">Initializing Countdown...</div>
-
-    <div class="desc">
-      Agurutva is a <strong>Zero Gravity Starship Carrier</strong> — a revolutionary <strong>Transportation Bridge</strong> connecting planets, civilizations, and worlds.  
-      Designed to operate across the Solar System, it enables stable, energy-efficient transport for life, cargo, and data — 
-      using only a fraction of conventional energy.  
-      <br><br>
-      <em style="color:#00ffff;">Motionless Motion — The Future Begins Here.</em>
-    </div>
-  </div> <div class="footer">
-    EDG Group India &copy; 2024. All rights reserved.
+  <div class="stars-bg">
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
   </div>
+  
+  <!-- Glowing Sun -->
+  <div class="sun"></div>
+  
+  <header>
+    <div class="logo-container">
+      <img src="1000001028.png" alt="Agurutva Logo" class="logo-img">
+      <div class="logo-text">
+        <div class="logo">AGURUTVA<span> OS</span></div>
+        <div class="tagline">Agurutva Operating System</div>
+      </div>
+    </div>
+    
+    <div class="countdown" id="countdown">Loading...</div>
+  </header>
+
+  <main>
+    <h1>SOLARIS INITIATIVE</h1>
+    <div class="subtitle">An Agurutva Framework for Interplanetary Civilization</div>
+
+    <div class="projects">
+      <div class="card">
+        <div class="symbol">
+          <img src="https://img.icons8.com/ios/100/ffffff/city-buildings.png" alt="Solar Cities Icon"/>
+        </div>
+        <h3>Solar Cities</h3>
+        <p>Urban ecosystems powered by intelligent solar networks, ensuring energy independence and AI-driven resource optimization.</p>
+      </div>
+
+      <div class="card">
+        <div class="symbol">
+          <img src="https://img.icons8.com/ios/100/ffffff/wheat.png" alt="Solar Agriculture Icon"/>
+        </div>
+        <h3>Solar Agriculture Belt</h3>
+        <p>Autonomous agricultural systems integrating solar grids, drone irrigation, and photobioreactor-based food production.</p>
+      </div>
+
+      <div class="card">
+        <div class="symbol">
+          <img src="https://img.icons8.com/ios/100/ffffff/launched-rocket.png" alt="Solar Transport Icon"/>
+        </div>
+        <h3>Solar Transport Bridge</h3>
+        <p>Zero-gravity interplanetary transport system powered by solar propulsion and adaptive AI navigation nodes.</p>
+      </div>
+
+      <div class="card">
+        <div class="symbol">
+          <img src="https://img.icons8.com/ios/100/ffffff/factory.png" alt="Industrial Colonies Icon"/>
+        </div>
+        <h3>Solar Industrial Colonies</h3>
+        <p>Lunar and Martian autonomous colonies focused on solar-driven manufacturing, mining, and robotic construction.</p>
+      </div>
+
+      <div class="card">
+        <div class="symbol">
+          <img src="https://img.icons8.com/ios/100/ffffff/biotech.png" alt="BioLife Systems Icon"/>
+        </div>
+        <h3>Solar BioLife Systems</h3>
+        <p>Terraforming-ready habitats engineered for self-sustaining biospheres powered entirely by solar bioenergy cycles.</p>
+      </div>
+    </div>
+
+    <div class="motion-text">MOTIONLESS MOTION — THE FUTURE BEGINS HERE</div>
+  </main>
+
+  <footer>
+    © 2024 EDG Group India | Powered by Agurutva OS | All Rights Reserved
+  </footer>
 
   <script>
-    // Countdown Timer Script
-    const targetDate = new Date("January 1, 2030 00:00:00").getTime();
+    // Countdown
+    const countdown = document.getElementById('countdown');
+    const launchDate = new Date("2029-04-01T00:00:00").getTime();
 
-    const countdownFunction = setInterval(() => {
+    setInterval(() => {
       const now = new Date().getTime();
-      const distance = targetDate - now;
+      const distance = launchDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Add leading zeros
+      const formattedDays = String(days).padStart(3, '0');
+      const formattedHours = String(hours).padStart(2, '0');
+      const formattedMinutes = String(minutes).padStart(2, '0');
+      const formattedSeconds = String(seconds).padStart(2, '0');
+
+      countdown.innerHTML = `${formattedDays}d ${formattedHours}h ${formattedMinutes}m ${formattedSeconds}s`;
 
       if (distance < 0) {
-        document.getElementById("countdown").innerHTML = "🚀 LAUNCHED SUCCESSFULLY!";
-        clearInterval(countdownFunction);
-      } else {
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        document.getElementById("countdown").innerHTML =
-          days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+        countdown.innerHTML = "🚀 Launched!";
       }
     }, 1000);
   </script>
-
 </body>
 </html>
