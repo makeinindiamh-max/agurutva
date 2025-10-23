@@ -9,34 +9,30 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   
   <style>
-    /* Reset & base style */
+    /* ------------------------------------------------------------------- */
+    /* BASE STYLES (MOBILE-FIRST) */
+    /* ------------------------------------------------------------------- */
     * {margin:0; padding:0; box-sizing:border-box;}
     
-    /* Body Styles - FIXED OVERLAP HERE */
     body {
-      /* Full Dark Space Background */
       background-color: #000000;
-      /* Subtle shadow animation for a 'deep space' feel */
       box-shadow: inset 0 0 100px rgba(0, 255, 255, 0.05); 
       animation: deepShadow 20s infinite alternate linear;
 
-      /* FIX: Added padding-bottom to prevent overlap with the absolute-positioned footer */
-      padding-bottom: 50px; 
+      /* Responsive padding fix: Ensures space above and below content */
+      padding: 30px 10px 50px 10px; 
       
-      /* Futuristic Fonts */
       font-family: 'Orbitron', sans-serif;
       color: #fff;
       height: 100vh;
-      overflow: hidden; 
+      overflow-y: auto; /* Allows content to scroll on small devices if necessary */
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start; /* Start content near the top, allowing it to flow */
       text-align: center;
-      padding-top: 20px; /* Keep existing top padding */
     }
     
-    /* Animation for subtle background depth */
     @keyframes deepShadow {
         from { box-shadow: inset 0 0 100px rgba(0, 255, 255, 0.05); }
         to { box-shadow: inset 0 0 150px rgba(255, 0, 255, 0.08); }
@@ -47,45 +43,38 @@
         position: absolute;
         width: 4px;
         height: 4px;
-        background: #FFFF33; /* Yellow Color */
+        background: #FFFF33;
         border-radius: 50%;
-        box-shadow: 0 0 15px #FFFF33; /* Matching Yellow Glow */
+        box-shadow: 0 0 15px #FFFF33;
         z-index: -1;
     }
     
     @keyframes moveComet {
-        0% {
-            transform: translate(0vw, 0vh) scale(1);
-            opacity: 0.5;
-        }
-        50% {
-             transform: translate(50vw, 50vh) scale(0.8);
-             opacity: 1;
-        }
-        100% {
-            transform: translate(100vw, 100vh) scale(0.5);
-            opacity: 0.5;
-        }
+        0% { transform: translate(0vw, 0vh) scale(1); opacity: 0.5; }
+        50% { transform: translate(50vw, 50vh) scale(0.8); opacity: 1; }
+        100% { transform: translate(100vw, 100vh) scale(0.5); opacity: 0.5; }
     }
 
 
     /* Logo */
     .logo img {
-      width: 300px;
-      max-width: 80vw;
-      margin-bottom: 30px;
-      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5)); 
+      width: 200px; /* Smaller base size for mobile */
+      max-width: 70vw;
+      margin-bottom: 25px;
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5)); 
     }
 
     /* Tagline */
     .tagline {
-      font-size: 1.8rem;
-      letter-spacing: 5px;
+      font-size: 1.3rem; /* Smaller size for mobile */
+      letter-spacing: 3px;
       color: #00ffff;
       text-shadow: 0 0 15px #00ffff, 0 0 25px #00aaff;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
       animation: glow 3s infinite alternate;
+      line-height: 1.2;
     }
+    
     @keyframes glow {
       from { text-shadow: 0 0 10px #00ffff, 0 0 20px #00aaff; }
       to { text-shadow: 0 0 30px #00ffff, 0 0 45px #00aaff; }
@@ -94,36 +83,72 @@
     /* Countdown - Digital style */
     .countdown {
       font-family: 'Share Tech Mono', monospace; 
-      font-size: 3rem; 
+      font-size: 2.2rem; /* Smaller size for mobile */
       color: #ffcc00;
       text-shadow: 0 0 10px #ffcc00;
-      margin-top: 20px;
-      padding: 10px 0; 
+      margin-top: 15px;
+      margin-bottom: 30px;
     }
     
     /* Description */
     .desc {
-      max-width: 800px;
-      font-size: 1rem;
+      max-width: 95%; /* Better width for mobile */
+      font-size: 0.85rem; /* Smaller size for mobile */
       color: #aaa;
-      margin-top: 50px;
       line-height: 1.8;
       font-family: 'Share Tech Mono', monospace;
-      padding: 0 20px;
-      /* Ensures the description content respects the body's bottom padding */
-      margin-bottom: 10px; 
+      padding: 0 5px;
+      /* Ensures space above the fixed footer */
+      margin-bottom: 30px; 
     }
     
     /* Footer/Copyright */
     .footer {
-      position: absolute;
-      bottom: 15px;
+      position: fixed; /* Fixed position is better for content that might scroll */
+      bottom: 0;
       width: 100%;
+      background-color: rgba(0, 0, 0, 0.7); /* Subtle dark background for visibility */
+      padding: 5px 0;
       font-family: 'Share Tech Mono', monospace;
-      font-size: 0.75rem; 
+      font-size: 0.7rem; /* Very small */
       color: rgba(255, 255, 255, 0.4);
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       text-shadow: none;
+      z-index: 10;
+    }
+
+    /* ------------------------------------------------------------------- */
+    /* MEDIA QUERY (DESKTOP/LARGER SCREENS) */
+    /* ------------------------------------------------------------------- */
+    @media (min-width: 768px) {
+        body {
+            /* Center vertically on desktop when content is short */
+            justify-content: center;
+            padding: 20px 20px 50px 20px;
+        }
+
+        .logo img {
+            width: 300px;
+            max-width: 350px;
+        }
+
+        .tagline {
+            font-size: 1.8rem;
+            letter-spacing: 5px;
+            margin-bottom: 40px;
+        }
+
+        .countdown {
+            font-size: 3rem;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .desc {
+            max-width: 800px;
+            font-size: 1rem;
+            padding: 0 20px;
+        }
     }
   </style>
 </head>
