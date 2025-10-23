@@ -12,11 +12,18 @@
     /* Reset & base style */
     * {margin:0; padding:0; box-sizing:border-box;}
     
-    /* Body Styles */
+    /* Body Styles - FIXED OVERLAP HERE */
     body {
+      /* Full Dark Space Background */
       background-color: #000000;
+      /* Subtle shadow animation for a 'deep space' feel */
       box-shadow: inset 0 0 100px rgba(0, 255, 255, 0.05); 
       animation: deepShadow 20s infinite alternate linear;
+
+      /* FIX: Added padding-bottom to prevent overlap with the absolute-positioned footer */
+      padding-bottom: 50px; 
+      
+      /* Futuristic Fonts */
       font-family: 'Orbitron', sans-serif;
       color: #fff;
       height: 100vh;
@@ -26,7 +33,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 20px;
+      padding-top: 20px; /* Keep existing top padding */
     }
     
     /* Animation for subtle background depth */
@@ -35,14 +42,14 @@
         to { box-shadow: inset 0 0 150px rgba(255, 0, 255, 0.08); }
     }
 
-    /* Comet/Asteroid Animation - COLOR CHANGED TO YELLOW */
+    /* Comet/Asteroid Animation - Yellow Color */
     .comet {
         position: absolute;
         width: 4px;
         height: 4px;
-        background: #FFFF33; /* <-- YELLOW COLOR */
+        background: #FFFF33; /* Yellow Color */
         border-radius: 50%;
-        box-shadow: 0 0 15px #FFFF33; /* <-- MATCHING YELLOW GLOW */
+        box-shadow: 0 0 15px #FFFF33; /* Matching Yellow Glow */
         z-index: -1;
     }
     
@@ -103,6 +110,8 @@
       line-height: 1.8;
       font-family: 'Share Tech Mono', monospace;
       padding: 0 20px;
+      /* Ensures the description content respects the body's bottom padding */
+      margin-bottom: 10px; 
     }
     
     /* Footer/Copyright */
@@ -142,6 +151,7 @@
       document.body.appendChild(comet);
     }
 
+    // Create 3 comets
     for (let i = 0; i < 3; i++) {
         createComet();
     }
