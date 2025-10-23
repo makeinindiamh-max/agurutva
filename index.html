@@ -19,18 +19,21 @@
       box-shadow: inset 0 0 100px rgba(0, 255, 255, 0.05); 
       animation: deepShadow 20s infinite alternate linear;
 
-      /* Responsive padding fix: Ensures space above and below content */
-      padding: 30px 10px 50px 10px; 
-      
-      font-family: 'Orbitron', sans-serif;
-      color: #fff;
-      height: 100vh;
-      overflow-y: auto; /* Allows content to scroll on small devices if necessary */
+      height: 100dvh; /* Use 100dvh for dynamic viewport height on mobile browsers */
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start; /* Start content near the top, allowing it to flow */
+      
+      /* FIX: Space-between to push content to top/bottom on smaller screens */
+      justify-content: space-between; 
+      
       text-align: center;
+      overflow: hidden; /* Prevent body scroll, manage internal scroll with flex-grow */
+      font-family: 'Orbitron', sans-serif;
+      color: #fff;
+      
+      /* FIX: Top/bottom padding to ensure content doesn't hit screen edges or fixed footer */
+      padding: 20px 10px; 
     }
     
     @keyframes deepShadow {
@@ -41,11 +44,11 @@
     /* Comet/Asteroid Animation - Yellow Color */
     .comet {
         position: absolute;
-        width: 4px;
-        height: 4px;
-        background: #FFFF33;
+        width: 3px; 
+        height: 3px; 
+        background: #FFFF33; 
         border-radius: 50%;
-        box-shadow: 0 0 15px #FFFF33;
+        box-shadow: 0 0 10px #FFFF33;
         z-index: -1;
     }
     
@@ -56,61 +59,75 @@
     }
 
 
+    /* Main content wrapper to allow for internal scrolling */
+    .main-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-grow: 1; /* Allows this section to take up available space */
+        justify-content: center; /* Center content vertically within this section */
+        overflow-y: auto; /* Allow internal scrolling if content is too tall */
+        width: 100%;
+        padding: 10px 0; /* Internal padding */
+    }
+
     /* Logo */
     .logo img {
-      width: 200px; /* Smaller base size for mobile */
-      max-width: 70vw;
-      margin-bottom: 25px;
-      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5)); 
+      width: 160px; /* Further reduced size for better mobile fit */
+      max-width: 50vw;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5)); 
     }
 
     /* Tagline */
     .tagline {
-      font-size: 1.3rem; /* Smaller size for mobile */
-      letter-spacing: 3px;
+      font-size: 0.9rem; /* Further reduced size for mobile */
+      letter-spacing: 2px;
       color: #00ffff;
-      text-shadow: 0 0 15px #00ffff, 0 0 25px #00aaff;
-      margin-bottom: 30px;
+      text-shadow: 0 0 8px #00ffff, 0 0 12px #00aaff;
+      margin-bottom: 20px;
       animation: glow 3s infinite alternate;
       line-height: 1.2;
+      padding: 0 5px;
     }
     
     @keyframes glow {
-      from { text-shadow: 0 0 10px #00ffff, 0 0 20px #00aaff; }
-      to { text-shadow: 0 0 30px #00ffff, 0 0 45px #00aaff; }
+      from { text-shadow: 0 0 5px #00ffff, 0 0 10px #00aaff; }
+      to { text-shadow: 0 0 15px #00ffff, 0 0 20px #00aaff; }
     }
 
     /* Countdown - Digital style */
     .countdown {
       font-family: 'Share Tech Mono', monospace; 
-      font-size: 2.2rem; /* Smaller size for mobile */
+      font-size: 1.6rem; /* Reduced size for mobile */
       color: #ffcc00;
-      text-shadow: 0 0 10px #ffcc00;
-      margin-top: 15px;
-      margin-bottom: 30px;
+      text-shadow: 0 0 8px #ffcc00;
+      margin-top: 10px;
+      margin-bottom: 25px;
+      line-height: 1.2;
+      padding: 0 5px;
     }
     
     /* Description */
     .desc {
-      max-width: 95%; /* Better width for mobile */
-      font-size: 0.85rem; /* Smaller size for mobile */
+      max-width: 95%; 
+      font-size: 0.7rem; /* Smallest size for readability on mobile */
       color: #aaa;
-      line-height: 1.8;
+      line-height: 1.6;
       font-family: 'Share Tech Mono', monospace;
-      padding: 0 5px;
-      /* Ensures space above the fixed footer */
-      margin-bottom: 30px; 
+      padding: 0 10px;
+      margin-top: 10px;
+      margin-bottom: 10px; 
     }
     
     /* Footer/Copyright */
     .footer {
-      position: fixed; /* Fixed position is better for content that might scroll */
-      bottom: 0;
+      /* Not fixed anymore, part of the flex column flow */
       width: 100%;
-      background-color: rgba(0, 0, 0, 0.7); /* Subtle dark background for visibility */
-      padding: 5px 0;
+      background-color: rgba(0, 0, 0, 0.7); 
+      padding: 8px 10px; /* Increased padding for better visibility over browser UI */
       font-family: 'Share Tech Mono', monospace;
-      font-size: 0.7rem; /* Very small */
+      font-size: 0.6rem; 
       color: rgba(255, 255, 255, 0.4);
       letter-spacing: 0.5px;
       text-shadow: none;
@@ -118,36 +135,52 @@
     }
 
     /* ------------------------------------------------------------------- */
-    /* MEDIA QUERY (DESKTOP/LARGER SCREENS) */
+    /* MEDIA QUERY (TABLET/DESKTOP SCREENS) - min-width: 768px */
     /* ------------------------------------------------------------------- */
     @media (min-width: 768px) {
         body {
-            /* Center vertically on desktop when content is short */
-            justify-content: center;
-            padding: 20px 20px 50px 20px;
+            padding: 30px 20px; /* Adjust padding for desktop */
+        }
+        .main-content {
+            padding: 20px 0;
+            max-width: 900px; /* Constrain content width on large screens */
+        }
+
+        .comet {
+            width: 4px;
+            height: 4px;
+            box-shadow: 0 0 15px #FFFF33;
         }
 
         .logo img {
             width: 300px;
             max-width: 350px;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5)); 
         }
 
         .tagline {
             font-size: 1.8rem;
             letter-spacing: 5px;
             margin-bottom: 40px;
+            text-shadow: 0 0 15px #00ffff, 0 0 25px #00aaff;
         }
 
         .countdown {
             font-size: 3rem;
             margin-top: 20px;
             margin-bottom: 40px;
+            text-shadow: 0 0 10px #ffcc00;
         }
         
         .desc {
             max-width: 800px;
             font-size: 1rem;
             padding: 0 20px;
+        }
+        .footer {
+            font-size: 0.75rem;
+            padding: 10px 0;
         }
     }
   </style>
@@ -182,23 +215,23 @@
     }
   </script>
 
-  <div class="logo">
-    <img src="logo.png" alt="AGURUTVA Logo" />
-  </div>
+  <div class="main-content">
+    <div class="logo">
+      <img src="logo.png" alt="AGURUTVA Logo" />
+    </div>
 
-  <div class="tagline">SOLAR TRANSPORTATION BRIDGE</div>
+    <div class="tagline">SOLAR TRANSPORTATION BRIDGE</div>
 
-  <div id="countdown" class="countdown">Initializing Countdown...</div>
+    <div id="countdown" class="countdown">Initializing Countdown...</div>
 
-  <div class="desc">
-    Agurutva is a <strong>Zero Gravity Starship Carrier</strong> — a revolutionary <strong>Transportation Bridge</strong> connecting planets, civilizations, and worlds.  
-    Designed to operate across the Solar System, it enables stable, energy-efficient transport for life, cargo, and data — 
-    using only a fraction of conventional energy.  
-    <br><br>
-    <em style="color:#00ffff;">Motionless Motion — The Future Begins Here.</em>
-  </div>
-  
-  <div class="footer">
+    <div class="desc">
+      Agurutva is a <strong>Zero Gravity Starship Carrier</strong> — a revolutionary <strong>Transportation Bridge</strong> connecting planets, civilizations, and worlds.  
+      Designed to operate across the Solar System, it enables stable, energy-efficient transport for life, cargo, and data — 
+      using only a fraction of conventional energy.  
+      <br><br>
+      <em style="color:#00ffff;">Motionless Motion — The Future Begins Here.</em>
+    </div>
+  </div> <div class="footer">
     EDG Group India &copy; 2024. All rights reserved.
   </div>
 
