@@ -33,19 +33,18 @@
       height: 100%;
       object-fit: cover;
       z-index: -10;
-      opacity: 0.25; /* subtle dark look */
+      opacity: 0.25;
       filter: brightness(0.4) contrast(1.2);
     }
 
     header {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
       padding: 20px 60px;
       position: fixed;
       top: 0;
       width: 100%;
-      max-width: 1200px;
       z-index: 100;
       background: rgba(0, 0, 0, 0.25);
       backdrop-filter: blur(8px);
@@ -56,37 +55,62 @@
       display: flex;
       align-items: center;
       gap: 15px;
+      position: relative;
     }
 
     .logo-img {
-      height: 45px;
+      height: 55px;
       width: auto;
-      filter: drop-shadow(0 0 6px #00bfff);
+      filter: drop-shadow(0 0 6px #000); /* black shadow for white logo */
       border-radius: 8px;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { filter: drop-shadow(0 0 6px #000) brightness(1); }
+      50% { filter: drop-shadow(0 0 12px #000) brightness(1.4); }
+    }
+
+    .logo-text {
+      text-align: center;
     }
 
     .logo-text .logo {
       font-family: 'Orbitron', sans-serif;
-      font-size: 1.6rem;
+      font-size: 2rem;
       color: #fff;
       letter-spacing: 3px;
       line-height: 1;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+      animation: shine 4s infinite linear;
+      background: linear-gradient(90deg, #fff, #00bfff, #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200%;
+    }
+
+    @keyframes shine {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
     }
 
     .logo-text .logo span {
       color: #00bfff;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
     }
 
     .logo-text .tagline {
       font-family: 'Rajdhani', sans-serif;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       color: #aaa;
       letter-spacing: 1px;
-      margin-top: 2px;
+      margin-top: 4px;
       font-weight: 500;
     }
 
     .countdown {
+      position: absolute;
+      right: 60px;
       color: #ffcc00;
       font-size: 1rem;
       letter-spacing: 1px;
@@ -198,18 +222,21 @@
       text-transform: uppercase;
     }
 
-    /* --- Hidden credit for video author --- */
     .video-credit {
       display: none;
     }
 
     @media (max-width: 768px) {
       header {
-        padding: 15px 20px;
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
+        padding: 15px 20px;
       }
-      main { padding-top: 180px; }
+      .countdown {
+        position: static;
+        margin-top: 8px;
+      }
+      main { padding-top: 200px; }
       h1 { font-size: 2.2rem; }
     }
   </style>
@@ -222,7 +249,6 @@
     Your browser does not support the video tag.
   </video>
 
-  <!-- Credit (hidden) -->
   <div class="video-credit">
     Video credit: “3D Animation of the Solar System” by Zelch Csaba (Pexels)
     URL: https://www.pexels.com/video/3d-animation-of-the-solar-system-12722063/
@@ -283,7 +309,6 @@
   </footer>
 
   <script>
-    // Countdown script
     const countdown = document.getElementById('countdown');
     const launchDate = new Date("2029-04-01T00:00:00").getTime();
 
