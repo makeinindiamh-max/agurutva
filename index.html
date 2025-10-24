@@ -44,7 +44,6 @@
       background: transparent;
     }
 
-    /* Layer 1: Small, slow stars */
     .stars {
       background-image: 
         radial-gradient(1px 1px at 20px 30px, #eee, transparent),
@@ -57,7 +56,6 @@
       animation: moveStars 120s linear infinite;
     }
 
-    /* Layer 2: Medium, faster stars */
     .stars2 {
       background-image: 
         radial-gradient(1px 1px at 50px 200px, #fff, transparent),
@@ -70,7 +68,6 @@
       animation: moveStars 80s linear infinite;
     }
     
-    /* Layer 3: Faint, distant elements */
     .stars3 {
       background-image: 
         radial-gradient(2px 2px at 10% 10%, #00bfff22, transparent),
@@ -85,7 +82,6 @@
       from { transform: translateY(0); }
       to { transform: translateY(-1000px); }
     }
-    /* --- End of Background --- */
 
     /* --- Glowing Sun --- */
     .sun {
@@ -107,14 +103,9 @@
     }
 
     @keyframes sunMove {
-      0% {
-        transform: translateX(-50px) translateY(0);
-      }
-      100% {
-        transform: translateX(calc(100vw - 150px)) translateY(0);
-      }
+      0% { transform: translateX(-50px); }
+      100% { transform: translateX(calc(100vw - 150px)); }
     }
-    /* --- End of Sun --- */
 
     header {
       display: flex;
@@ -138,9 +129,10 @@
     }
 
     .logo-img {
-      height: 40px;
+      height: 45px;
       width: auto;
-      filter: drop-shadow(0 0 5px #00bfff);
+      filter: drop-shadow(0 0 6px #00bfff);
+      border-radius: 8px;
     }
 
     .logo-text .logo {
@@ -150,7 +142,7 @@
       letter-spacing: 3px;
       line-height: 1;
     }
-    
+
     .logo-text .logo span {
       color: #00bfff;
     }
@@ -163,7 +155,6 @@
       margin-top: 2px;
       font-weight: 500;
     }
-    /* --- End of Logo --- */
 
     .countdown {
       color: #ffcc00;
@@ -185,7 +176,6 @@
       max-width: 1200px;
     }
 
-    /* --- Updated Titles --- */
     h1 {
       font-family: 'Orbitron', sans-serif;
       font-size: 2.8rem;
@@ -201,7 +191,6 @@
       letter-spacing: 1px;
       margin-bottom: 60px;
     }
-    /* --- End of Titles --- */
 
     .projects {
       display: grid;
@@ -217,7 +206,6 @@
       border-radius: 15px;
       padding: 40px 25px;
       transition: all 0.4s ease;
-      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -280,29 +268,16 @@
       text-transform: uppercase;
     }
 
-    /* Responsive adjustments */
     @media (max-width: 768px) {
       header {
         padding: 15px 20px;
         flex-direction: column;
         gap: 15px;
       }
-      
-      main {
-        padding-top: 180px;
-      }
-      
-      h1 {
-        font-size: 2.2rem;
-      }
-      
-      .sun {
-        width: 150px;
-        height: 150px;
-        margin-top: -75px;
-      }
+      main { padding-top: 180px; }
+      h1 { font-size: 2.2rem; }
+      .sun { width: 150px; height: 150px; margin-top: -75px; }
     }
-
   </style>
 </head>
 
@@ -312,19 +287,17 @@
     <div class="stars2"></div>
     <div class="stars3"></div>
   </div>
-  
-  <!-- Glowing Sun -->
+
   <div class="sun"></div>
-  
+
   <header>
     <div class="logo-container">
-      <img src="1000001028.png" alt="Agurutva Logo" class="logo-img">
+      <img src="agurutva-academy-logo.png" alt="Agurutva Academy Logo" class="logo-img">
       <div class="logo-text">
         <div class="logo">AGURUTVA<span> OS</span></div>
         <div class="tagline">Agurutva Operating System</div>
       </div>
     </div>
-    
     <div class="countdown" id="countdown">Loading...</div>
   </header>
 
@@ -334,43 +307,33 @@
 
     <div class="projects">
       <div class="card">
-        <div class="symbol">
-          <img src="https://img.icons8.com/ios/100/ffffff/city-buildings.png" alt="Solar Cities Icon"/>
-        </div>
+        <div class="symbol"><img src="https://img.icons8.com/ios/100/ffffff/city-buildings.png"/></div>
         <h3>Solar Cities</h3>
-        <p>Urban ecosystems powered by intelligent solar networks, ensuring energy independence and AI-driven resource optimization.</p>
+        <p>Urban ecosystems powered by intelligent solar networks, ensuring energy independence and AI-driven optimization.</p>
       </div>
 
       <div class="card">
-        <div class="symbol">
-          <img src="https://img.icons8.com/ios/100/ffffff/wheat.png" alt="Solar Agriculture Icon"/>
-        </div>
+        <div class="symbol"><img src="https://img.icons8.com/ios/100/ffffff/wheat.png"/></div>
         <h3>Solar Agriculture Belt</h3>
-        <p>Autonomous agricultural systems integrating solar grids, drone irrigation, and photobioreactor-based food production.</p>
+        <p>Autonomous agricultural systems integrating solar grids, drone irrigation, and photobioreactor food systems.</p>
       </div>
 
       <div class="card">
-        <div class="symbol">
-          <img src="https://img.icons8.com/ios/100/ffffff/launched-rocket.png" alt="Solar Transport Icon"/>
-        </div>
+        <div class="symbol"><img src="https://img.icons8.com/ios/100/ffffff/launched-rocket.png"/></div>
         <h3>Solar Transport Bridge</h3>
-        <p>Zero-gravity interplanetary transport system powered by solar propulsion and adaptive AI navigation nodes.</p>
+        <p>Zero-gravity interplanetary transport powered by solar propulsion and adaptive AI navigation.</p>
       </div>
 
       <div class="card">
-        <div class="symbol">
-          <img src="https://img.icons8.com/ios/100/ffffff/factory.png" alt="Industrial Colonies Icon"/>
-        </div>
+        <div class="symbol"><img src="https://img.icons8.com/ios/100/ffffff/factory.png"/></div>
         <h3>Solar Industrial Colonies</h3>
-        <p>Lunar and Martian autonomous colonies focused on solar-driven manufacturing, mining, and robotic construction.</p>
+        <p>Lunar and Martian colonies focused on solar-driven manufacturing, mining, and robotic construction.</p>
       </div>
 
       <div class="card">
-        <div class="symbol">
-          <img src="https://img.icons8.com/ios/100/ffffff/biotech.png" alt="BioLife Systems Icon"/>
-        </div>
+        <div class="symbol"><img src="https://img.icons8.com/ios/100/ffffff/biotech.png"/></div>
         <h3>Solar BioLife Systems</h3>
-        <p>Terraforming-ready habitats engineered for self-sustaining biospheres powered entirely by solar bioenergy cycles.</p>
+        <p>Terraforming-ready habitats designed for self-sustaining biospheres powered entirely by solar bioenergy.</p>
       </div>
     </div>
 
@@ -378,7 +341,7 @@
   </main>
 
   <footer>
-    © 2024 EDG Group India | Powered by Agurutva OS | All Rights Reserved
+    © 2025 EDG Group India | Powered by Agurutva OS | All Rights Reserved
   </footer>
 
   <script>
@@ -389,23 +352,12 @@
     setInterval(() => {
       const now = new Date().getTime();
       const distance = launchDate - now;
-
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      // Add leading zeros
-      const formattedDays = String(days).padStart(3, '0');
-      const formattedHours = String(hours).padStart(2, '0');
-      const formattedMinutes = String(minutes).padStart(2, '0');
-      const formattedSeconds = String(seconds).padStart(2, '0');
-
-      countdown.innerHTML = `${formattedDays}d ${formattedHours}h ${formattedMinutes}m ${formattedSeconds}s`;
-
-      if (distance < 0) {
-        countdown.innerHTML = "🚀 Launched!";
-      }
+      countdown.innerHTML = `${String(days).padStart(3,'0')}d ${String(hours).padStart(2,'0')}h ${String(minutes).padStart(2,'0')}m ${String(seconds).padStart(2,'0')}s`;
+      if (distance < 0) countdown.innerHTML = "🚀 Launched!";
     }, 1000);
   </script>
 </body>
